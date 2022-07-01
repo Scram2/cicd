@@ -4,10 +4,14 @@ pipeline{
 
     stages{
         stage("Build"){
-            steps{}
+            steps{
+                echo("Build");
+            }
         }
         stage("Testing"){
-             steps{}
+             steps{
+                echo("Testing");
+            }
         }
         stage("Continue?"){
             steps{
@@ -15,16 +19,24 @@ pipeline{
             }
         }
         stage("Deploy - Test env 1"){
-            steps{}
+            steps{
+               echo("Deploy_1");
+            }
         }
         stage("Deploy - Test env 2"){
-            steps{}
+            steps{
+               echo("Deploy_2");
+            }
         }
         stage("Deploy - Test env 3"){
-            steps{}
+            steps{
+               echo("Deploy_3");
+            }
         }
         stage("Deploy - Prod"){
-            steps{}
+            steps{
+               echo("Deploy_3");
+            }
         }
     }
 }
