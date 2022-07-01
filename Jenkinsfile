@@ -1,12 +1,14 @@
 // Declarative pipeline
 pipeline{
     agent any
+//     tools {
+//         maven "Maven 3.8.1"
+//         jdk "jdk11"
+//     }
     tools {
-        maven "Maven 3.8.1"
-        jdk "jdk11"
+        maven "MAVEN"
+        jdk "JDK"
     }
-
-
     stages{
         stage ('Initialize') {
             steps {
