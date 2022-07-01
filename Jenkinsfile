@@ -9,6 +9,11 @@ pipeline{
         maven "MAVEN"
         jdk "JDK"
     }
+    environment {
+            AWS_ACCESS_KEY_ID     = credentials('jenkins-aws-secret-key-id')
+            AWS_SECRET_ACCESS_KEY = credentials('jenkins-aws-secret-access-key')
+    }
+
     stages{
         stage ('Initialize') {
             steps {
@@ -21,8 +26,8 @@ pipeline{
 
         stage("Build"){
             steps{
-//                 echo("Build");
-                sh 'mvn -Dmaven.test.failure.ignore=true install'
+                 echo("Build");
+                //sh 'mvn -Dmaven.test.failure.ignore=true install'
             }
         }
         stage("Testing"){
@@ -54,6 +59,16 @@ pipeline{
             steps{
                echo("Deploy_3");
             }
+            post {
+                            success {
+                                archiveArtifacts 'target/*.jar'
+                                sh 'aws configure set region us-east-1'
+                                sh 'aws s3 cp ./target/calculator-0.0.1-SNAPSHOT.jar s3://YOUR-BUCKET-NAME/calculator.jar'
+                                // bat 'aws configure set region us-east-1'
+                                // bat 'aws s3 cp ./target/calculator-0.0.1-SNAPSHOT.jar s3://YOUR-BUCKET-NAME/calculator.jar'
+                            }
+                        }
+
         }
     }
 }
